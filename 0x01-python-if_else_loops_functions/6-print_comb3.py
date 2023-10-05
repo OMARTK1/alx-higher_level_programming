@@ -6,4 +6,3 @@ for num1 in range(0, 10):
             print("{:02d}, ".format(num1 * 10 + num2), end="")
         else:
             print("{:02d}".format(num1 * 10 + num2))
-
