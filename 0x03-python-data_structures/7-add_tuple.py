@@ -9,7 +9,8 @@ def add_tuple(tuple_a=(), tuple_b=()):
     c = tuple_b[0] if len(tuple_b) > 0 else 0
     d = tuple_b[1] if len(tuple_b) > 1 else 0
 
-    # Calculate the sum of the first elements and the sum of the second elements
+    # Calculate the sum of the first elements
+    # and the sum of the second elements
     sum_first = a + c
     sum_second = b + d
 
