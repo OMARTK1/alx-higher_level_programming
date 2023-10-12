@@ -48,6 +48,6 @@ void print_python_bytes(PyObject *p)
 
 	printf("  first 10 bytes:");
 	for (i = 0; i < size && i < 10; ++i)
-		printf(" %02x", str[i] & 0xff);
+		printf(" %02x", (unsigned char)str[i]);
 	printf("\n");
 }
