@@ -1,6 +1,6 @@
 def magic_calculation(a, b):
     result = 0
-    for i in range(1, 3):
+    for i in range(1, 4):
         try:
             if a > i:
                 raise Exception('Too far')
@@ -9,4 +9,8 @@ def magic_calculation(a, b):
         except Exception:
             result = b + a
             break
+        else:
+            result += b
+        finally:
+            result += 1
     return result
