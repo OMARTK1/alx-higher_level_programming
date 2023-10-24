@@ -18,13 +18,14 @@ void print_python_bytes(PyObject *p)
 	}
 
 	Py_ssize_t size = PyBytes_Size(p);
+	char *data = bytes->ob_sval;
 
 	printf("  size: %ld\n", size);
 	printf("  first %ld bytes: ", size < 10 ? size : 10);
 
 	for (Py_ssize_t i = 0; i < size && i < 10; ++i)
 	{
-		printf("%02x ", (unsigned char)bytes->ob_sval[i]);
+		printf("%02x ", (unsigned char)data[i]);
 	}
 	printf("\n");
 }
