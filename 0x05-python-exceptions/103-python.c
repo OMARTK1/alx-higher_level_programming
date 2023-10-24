@@ -21,6 +21,7 @@ void print_python_bytes(PyObject *p)
 	char *data = bytes->ob_sval;
 
 	printf("  size: %ld\n", size);
+	printf("  trying string: %s\n", data);
 	printf("  first %ld bytes: ", size < 10 ? size : 10);
 
 	for (Py_ssize_t i = 0; i < size && i < 10; ++i)
