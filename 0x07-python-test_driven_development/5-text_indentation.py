@@ -1,26 +1,26 @@
 #!/usr/bin/python3
-"""Module for text_indentation method."""
+"""Module for print_square method."""
 
 
-def text_indentation(text):
-    """Method for adding 2 new lines after '.?:' chars.
+def print_square(size):
+    """Method for printing a square with # characters.
 
     Args:
-        text: The str text.
+        size: The int size of the square's side.
 
     Raises:
-        TypeError: If text is not a str.
+        TypeError: If size is not an int.
+        ValueError: If size is < 0.
     """
-    if not isinstance(text, str):
-        raise TypeError("text must be a string")
+    if not isinstance(size, int):
+        raise TypeError("size must be an integer")
 
-    for delim in ".?:":
-        # print(delim, text.split(delim))
-        text = (delim + "\n\n").join(
-                [line.strip(" ") for line in text.split(delim)])
+    if size < 0:
+        raise ValueError("size must be >= 0")
 
-    print(text, end="")
+    print((("#" * size + "\n") * size), end="")
+
 
 if __name__ == "__main__":
     import doctest
-    doctest.testfile("tests/5-text_indentation.txt")
+    doctest.testfile("tests/4-print_square.txt")
