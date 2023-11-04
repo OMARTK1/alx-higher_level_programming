@@ -1,27 +1,25 @@
 #!/usr/bin/python3
-"""Defining a function that divide all elements in matrix."""
+"""Module for say_my_name method."""
 
 
-def matrix_divided(matrix, div):
-    """Defining a function that divide all elements in matrix..
+def say_my_name(first_name, last_name=""):
+    """Method for printing first and last name.
 
-    Returns:
-        the new matrix that represent the result of the divided elements
+    Args:
+        first_name: first name string.
+        last_name: last name string.
+
+    Raises:
+        TypeError: If first_name or last_name are not strings.
     """
-    if (not isinstance(matrix, list) or matrix == [] or
-            not all(isinstance(R, list) for R in matrix) or
-            not all((isinstance(ele, int) or isinstance(ele, float))
-                for ele in [N for R in matrix for N in R])):
-                raise TypeError("matrix must be a matrix (list of lists) of "
-                        "integers/floats")
+    if not isinstance(first_name, str):
+        raise TypeError("first_name must be a string")
 
-    if not all(len(R) == len(matrix[0]) for R in matrix):
-        raise TypeError("Each row of the matrix must have the same size")
+    if not isinstance(last_name, str):
+        raise TypeError("last_name must be a string")
 
-    if not isinstance(div, int) and not isinstance(div, float):
-        raise TypeError("div must be a number")
+    print("My name is {:s} {:s}".format(first_name, last_name))
 
-    if div == 0:
-        raise ZeroDivisionError("division by zero")
-
-    return ([list(map(lambda x: round(x / div, 2), R)) for R in matrix])
+if __name__ == "__main__":
+    import doctest
+    doctest.testfile("tests/3-say_my_name.txt")
