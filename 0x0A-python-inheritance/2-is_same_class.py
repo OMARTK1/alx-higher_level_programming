@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-Module containing a function is_same_class that checks if an object is an instance of a specified class.
+Module containing a function is_same_class that checks
+if an object is an instance of a specified class.
 """
 
 
