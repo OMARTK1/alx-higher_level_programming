@@ -3,6 +3,7 @@
 Module containing the add_attribute function.
 """
 
+
 def add_attribute(obj, name, value):
     """
     Adds a new attribute to an object if it's possible.
@@ -19,4 +20,3 @@ def add_attribute(obj, name, value):
         setattr(obj, name, value)
     else:
         raise TypeError("can't add new attribute")
-
