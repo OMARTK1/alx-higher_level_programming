@@ -3,6 +3,7 @@
 Module for representing a student as a JSON object
 """
 
+
 class Student:
     """
     Represents a student.

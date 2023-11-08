@@ -5,6 +5,7 @@ Module for loading, adding arguments, and saving to a JSON file
 
 import sys
 
+
 def load_add_save():
     """
     Loads, adds arguments to a list, and saves them to a JSON file.

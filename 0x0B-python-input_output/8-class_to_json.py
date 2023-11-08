@@ -3,6 +3,7 @@
 Module for converting a class instance to a JSON representation
 """
 
+
 def class_to_json(obj):
     """
     Converts a class instance to a JSON representation.

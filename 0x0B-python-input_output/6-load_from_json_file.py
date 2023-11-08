@@ -5,6 +5,7 @@ Module for loading an object from a JSON file
 
 import json
 
+
 def load_from_json_file(filename):
     """
     Creates an object from a JSON file.
@@ -24,6 +25,7 @@ def load_from_json_file(filename):
             return json.load(file)
     except FileNotFoundError:
         return None
+
 
 if __name__ == "__main__":
     import sys

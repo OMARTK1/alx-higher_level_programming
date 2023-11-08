@@ -3,6 +3,7 @@
 Module for representing a student as a JSON object with attribute filtering
 """
 
+
 class Student:
     """
     Represents a student.
@@ -31,10 +32,12 @@ class Student:
 
     def to_json(self, attrs=None):
         """
-        Converts the student object to a JSON representation with attribute filtering.
+        Converts the student object to a JSON representation
+        with attribute filtering.
 
         Args:
-            attrs (list): List of attribute names to include in the JSON representation.
+            attrs (list): List of attribute names to include
+            in the JSON representation.
 
         Returns:
             dict: JSON representation of the student object.
@@ -43,4 +46,5 @@ class Student:
         if attrs is None or not all(isinstance(attr, str) for attr in attrs):
             return self.__dict__
         else:
-            return {key: value for key, value in self.__dict__.items() if key in attrs}
+            return {key: value for key, value in self.__dict__.items()
+                    if key in attrs}

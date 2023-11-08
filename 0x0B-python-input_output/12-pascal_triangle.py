@@ -3,6 +3,7 @@
 Module for Pascal's Triangle
 """
 
+
 def pascal_triangle(n):
     """
     Generates Pascal's Triangle up to the given number of rows.
@@ -20,11 +21,13 @@ def pascal_triangle(n):
     while len(triangle) < n:
         row = [1]
         if triangle[-1]:
-            row.extend([sum(pair) for pair in zip(triangle[-1], triangle[-1][1:])])
+            row.extend([sum(pair) for pair in zip(triangle[-1],
+                        triangle[-1][1:])])
             row.append(1)
         triangle.append(row)
 
     return triangle
+
 
 if __name__ == "__main__":
     n = 5
