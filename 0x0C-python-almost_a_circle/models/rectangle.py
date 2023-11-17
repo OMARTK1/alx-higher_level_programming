@@ -1,89 +1,128 @@
 #!/usr/bin/python3
-""" Rectangle module """
-from models.base import Base
+'''Module for Base class.'''
+from json import dumps, loads
+import csv
 
 
-class Rectangle(Base):
-    """ Rectangle class """
+class Base:
+    '''A representation of the base of our OOP hierarchy.'''
 
-    def __init__(self, width, height, x=0, y=0, id=None):
-        """ Initialize Rectangle instance """
-        super().__init__(id)
-        self.width = width
-        self.height = height
-        self.x = x
-        self.y = y
+    __nb_objects = 0
 
-    @property
-    def width(self):
-        """ Getter for width """
-        return self.__width
+    def __init__(self, id=None):
+        '''Constructor.'''
+        if id is not None:
+            self.id = id
+        else:
+            Base.__nb_objects += 1
+            self.id = Base.__nb_objects
 
-    @width.setter
-    def width(self, value):
-        """ Setter for width """
-        self.validate_non_negative_int("width", value)
-        self.__width = value
+    @staticmethod
+    def to_json_string(list_dictionaries):
+        '''Jsonifies a dictionary so it's quite rightly and longer.'''
+        if list_dictionaries is None or not list_dictionaries:
+            return "[]"
+        else:
+            return dumps(list_dictionaries)
 
-    @property
-    def height(self):
-        """ Getter for height """
-        return self.__height
+    @staticmethod
+    def from_json_string(json_string):
+        '''Unjsonifies a dictionary.'''
+        if json_string is None or not json_string:
+            return []
+        return loads(json_string)
 
-    @height.setter
-    def height(self, value):
-        """ Setter for height """
-        self.validate_non_negative_int("height", value)
-        self.__height = value
+    @classmethod
+    def save_to_file(cls, list_objs):
+        '''Saves jsonified object to file.'''
+        if list_objs is not None:
+            list_objs = [o.to_dictionary() for o in list_objs]
+        with open("{}.json".format(cls.__name__), "w", encoding="utf-8") as f:
+            f.write(cls.to_json_string(list_objs))
 
-    @property
-    def x(self):
-        """ Getter for x """
-        return self.__x
+    @classmethod
+    def create(cls, **dictionary):
+        '''Loads instance from dictionary.'''
+        from models.rectangle import Rectangle
+        from models.square import Square
+        if cls is Rectangle:
+            new = Rectangle(1, 1)
+        elif cls is Square:
+            new = Square(1)
+        else:
+            new = None
+        new.update(**dictionary)
+        return new
 
-    @x.setter
-    def x(self, value):
-        """ Setter for x """
-        self.validate_non_negative_int("x", value)
-        self.__x = value
+    @classmethod
+    def load_from_file(cls):
+        '''Loads string from file and unjsonifies.'''
+        from os import path
+        file = "{}.json".format(cls.__name__)
+        if not path.isfile(file):
+            return []
+        with open(file, "r", encoding="utf-8") as f:
+            return [cls.create(**d) for d in cls.from_json_string(f.read())]
 
-    @property
-    def y(self):
-        """ Getter for y """
-        return self.__y
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        '''Saves object to csv file.'''
+        from models.rectangle import Rectangle
+        from models.square import Square
+        if list_objs is not None:
+            if cls is Rectangle:
+                list_objs = [[o.id, o.width, o.height, o.x, o.y]
+                             for o in list_objs]
+            else:
+                list_objs = [[o.id, o.size, o.x, o.y]
+                             for o in list_objs]
+        with open('{}.csv'.format(cls.__name__), 'w', newline='',
+                  encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerows(list_objs)
 
-    @y.setter
-    def y(self, value):
-        """ Setter for y """
-        self.validate_non_negative_int("y", value)
-        self.__y = value
+    @classmethod
+    def load_from_file_csv(cls):
+        '''Loads object to csv file.'''
+        from models.rectangle import Rectangle
+        from models.square import Square
+        ret = []
+        with open('{}.csv'.format(cls.__name__), 'r', newline='',
+                  encoding='utf-8') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                row = [int(r) for r in row]
+                if cls is Rectangle:
+                    d = {"id": row[0], "width": row[1], "height": row[2],
+                         "x": row[3], "y": row[4]}
+                else:
+                    d = {"id": row[0], "size": row[1],
+                         "x": row[2], "y": row[3]}
+                ret.append(cls.create(**d))
+        return ret
 
-    def validate_non_negative_int(self, attribute, value):
-        """ Validate if value is a non-negative integer """
-        if not isinstance(value, int):
-            raise TypeError(f"{attribute} must be an integer")
-        if value < 0:
-            raise ValueError(f"{attribute} must be >= 0")
+    @staticmethod
+    def draw(list_rectangles, list_squares):
+        import turtle
+        import time
+        from random import randrange
+        turtle.Screen().colormode(255)
+        for i in list_rectangles + list_squares:
+            t = turtle.Turtle()
+            t.color((randrange(255), randrange(255), randrange(255)))
+            t.pensize(1)
+            t.penup()
+            t.pendown()
+            t.setpos((i.x + t.pos()[0], i.y - t.pos()[1]))
+            t.pensize(10)
+            t.forward(i.width)
+            t.left(90)
+            t.forward(i.height)
+            t.left(90)
+            t.forward(i.width)
+            t.left(90)
+            t.forward(i.height)
+            t.left(90)
+            t.end_fill()
 
-    def area(self):
-        """ Calculate and return the area of the rectangle """
-        return self.__width * self.__height
-
-    def display(self):
-        """ Display the rectangle using '#' characters """
-        for _ in range(self.__height):
-            print("#" * self.__width)
-
-    def __str__(self):
-        """ Return a string representation of the rectangle """
-        return f"[Rectangle] ({self.id}) {self.__x}/{self.__y} - {self.__width}/{self.__height}"
-
-    def to_dictionary(self):
-        """ Return dictionary representation of Rectangle instance """
-        return {
-            'id': self.id,
-            'width': self.__width,
-            'height': self.__height,
-            'x': self.__x,
-            'y': self.__y
-        }
+        time.sleep(5)
