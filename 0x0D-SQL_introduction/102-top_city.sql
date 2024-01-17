@@ -1,3 +1,4 @@
+-- displays average temp by city for july and august in descending order
 CREATE TABLE IF NOT EXISTS temp_july_aug
        SELECT *
        FROM temperatures
