@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 
-"""Defines the State class."""
+"""
+This module defines the State class, which represents a state entity
+in the database.
+"""
 
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base

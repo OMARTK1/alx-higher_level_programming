@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 
-"""Defines the City class."""
+"""
+This module defines the City class, which represents a city entity
+in the database.
+"""
 
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
