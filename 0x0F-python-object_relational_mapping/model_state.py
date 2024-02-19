@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """Define a State class that inherits from Base"""
 import sys
 from sqlalchemy.ext.declarative import declarative_base
