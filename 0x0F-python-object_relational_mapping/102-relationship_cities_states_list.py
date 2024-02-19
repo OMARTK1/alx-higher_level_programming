@@ -27,7 +27,6 @@ def main():
 
     cities = session.query(City).order_by(City.id).all()
 
-
     for city in cities:
         print("{}: {} -> {}".format(city.id, city.name, city.state.name))
 
